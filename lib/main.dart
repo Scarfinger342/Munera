@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -6,15 +8,61 @@ import 'kanban.dart';
 import 'deadlines.dart';
 import 'timeblocking.dart';
 
+String prettyPrintJson(dynamic input) {
+  var encoder = const JsonEncoder.withIndent(
+    '    ',
+  ); // Use two spaces for indentation
+
+  if (input is String) {
+    // If input is a String, decode it first
+    final decoded = json.decode(input);
+    return encoder.convert(decoded);
+  } else {
+    // If it's already a Map or List
+    return encoder.convert(input);
+  }
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final directory = await getApplicationSupportDirectory();
-  print(directory.path);
+  final Directory directory = await getApplicationSupportDirectory();
+  final String path = directory.path;
+  AppState.jsonfile = File('$path/munera.json');
+  if (!await AppState.jsonfile.exists()) {
+    await AppState.jsonfile.create();
+    await AppState.jsonfile.writeAsString("{}");
+  }
+  final String json = await AppState.jsonfile.readAsString();
+  AppState.data = jsonDecode(json);
+  if (AppState.data.isEmpty) {
+    AppState.data = AppState.defaultSettings();
+    await AppState.outputJSON();
+  }
   runApp(const MyApp());
 }
 
 class AppState {
-  static final menuSelection = ValueNotifier<int>(0);
+  static final ValueNotifier<int> menuSelection = ValueNotifier<int>(0);
+  static Map<String, dynamic> data = {};
+  static late File jsonfile;
+  static Map<String, dynamic> defaultSettings() {
+    return {
+      "settings": {
+        "workLength": 25,
+        "breakLength": 5,
+        "longBreakLength": 15,
+        "longBreakEveryTh": 4,
+        "useSubjects": true,
+      },
+      "tasks": [],
+      "groups": [],
+      "timeblocks": [],
+    };
+  }
+
+  static Future<void> outputJSON() async {
+    await jsonfile.writeAsString(prettyPrintJson(data));
+  }
 }
 
 class MyApp extends StatelessWidget {
