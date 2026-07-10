@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Timeblocking extends StatefulWidget {
-  const Timeblocking({super.key});
+class TimeBlocking extends StatefulWidget {
+  const TimeBlocking({super.key});
 
   @override
-  State<Timeblocking> createState() => _TimeblockingState();
+  State<TimeBlocking> createState() => _TimeBlockingState();
 }
 
-class _TimeblockingState extends State<Timeblocking> {
+class _TimeBlockingState extends State<TimeBlocking> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'taskstable.dart';
+import 'kanban.dart';
+import 'deadlines.dart';
+import 'timeblocking.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,18 +55,18 @@ class Contents extends StatefulWidget {
 }
 
 class _ContentsState extends State<Contents> {
-  String getText() {
+  Widget getWidget() {
     switch (AppState.menuSelection.value) {
       case 0:
-        return "0: Tasks Table";
+        return TasksTable();
       case 1:
-        return "1: Kanban";
+        return Kanban();
       case 2:
-        return "2: Deadlines";
+        return Deadlines();
       case 3:
-        return "3: Time Blocking";
+        return TimeBlocking();
       default:
-        return "Unknown";
+        return Container();
     }
   }
 
@@ -70,13 +74,11 @@ class _ContentsState extends State<Contents> {
   Widget build(BuildContext context) {
     return Container(
       padding: .all(8.0),
-      child: Center(
-        child: ValueListenableBuilder<int>(
-          valueListenable: AppState.menuSelection,
-          builder: (context, value, child) {
-            return Text(getText(), style: TextStyle(fontSize: 40));
-          },
-        ),
+      child: ValueListenableBuilder<int>(
+        valueListenable: AppState.menuSelection,
+        builder: (context, value, child) {
+          return getWidget();
+        },
       ),
     );
   }
