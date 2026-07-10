@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'taskstable.dart';
 import 'kanban.dart';
 import 'deadlines.dart';
@@ -6,7 +8,8 @@ import 'timeblocking.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  final directory = await getApplicationSupportDirectory();
+  print(directory.path);
   runApp(const MyApp());
 }
 
