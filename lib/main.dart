@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'taskstable.dart';
+import 'tasks_table.dart';
 import 'kanban.dart';
 import 'deadlines.dart';
-import 'timeblocking.dart';
+import 'time_blocking.dart';
 
 String prettyPrintJson(dynamic input) {
   var encoder = const JsonEncoder.withIndent(

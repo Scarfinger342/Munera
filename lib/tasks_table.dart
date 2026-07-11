@@ -10,6 +10,8 @@ class TasksTable extends StatefulWidget {
 class _TasksTableState extends State<TasksTable> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Center(
+      child: FilledButton(onPressed: () {}, child: const Text('Show Dialog')),
+    );
   }
 }
