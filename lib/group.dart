@@ -33,5 +33,11 @@ class Group {
     createdAt: DateTime.parse(object['createdAt']),
     updatedAt: DateTime.parse(object['updatedAt']),
   );
-  Map<String, dynamic> toJSON() => {};
+  Map<String, dynamic> toJSON() => {
+    'id': id,
+    'name': name,
+    'hex': "#${color.toARGB32().toRadixString(16).toUpperCase()}",
+    'createdAt': createdAt.toIso8601String(),
+    'updatedAt': updatedAt.toIso8601String(),
+  };
 }
