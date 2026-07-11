@@ -38,13 +38,13 @@ class Task {
     required this.createdAt,
     required this.updatedAt,
   });
-  factory Task.create(
-    String name,
+  factory Task.create({
+    required String name,
     String? group,
     Status? status,
     EffortLevel? effortLevel,
     DateTime? due,
-  ) {
+  }) {
     Uuid uuid = Uuid();
     String id = uuid.v4();
     return Task(

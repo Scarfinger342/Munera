@@ -15,7 +15,7 @@ class Group {
     required this.createdAt,
     required this.updatedAt,
   });
-  factory Group.create(String name, Color color) {
+  factory Group.create({required String name, required Color color}) {
     Uuid uuid = Uuid();
     String id = uuid.v4();
     return Group(
