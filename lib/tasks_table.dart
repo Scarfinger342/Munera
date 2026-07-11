@@ -54,7 +54,17 @@ class _TasksTableState extends State<TasksTable> {
                               : "",
                         ),
                       ),
-                      DataCell(Text('TODO')), // TODO
+                      DataCell(
+                        Text(
+                          task.group != null
+                              ? AppState.groups
+                                    .firstWhere(
+                                      (group) => group.id == task.group,
+                                    )
+                                    .name
+                              : "",
+                        ),
+                      ), // TODO color rows with group color
                       DataCell(
                         IconButton(icon: Icon(Icons.delete), onPressed: () {}),
                       ),

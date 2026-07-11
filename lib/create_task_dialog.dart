@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 import 'task.dart';
-import 'group.dart';
-import 'main.dart'; // for AppState
+import 'group_dropdown.dart';
 import 'package:intl/intl.dart';
 
 class CreateTaskDialog extends StatefulWidget {
@@ -14,9 +14,7 @@ class CreateTaskDialog extends StatefulWidget {
 class _CreateTaskDialogState extends State<CreateTaskDialog> {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
-  Set<Group> groups = {};
   // TODO group picker
-  // We need to get the list of groups and convert them to objects
   Status status = .todo;
   EffortLevel effortLevel = .low;
   DateTime dueDate = DateTime.now();
@@ -128,6 +126,17 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                     },
                     child: Text(DateFormat('d MMMM yyyy').format(dueDate)),
                   ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Text(
+                    AppState.settings['useSubjects'] ? "Subject" : "Group",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Spacer(),
+                  GroupDropdown(),
                 ],
               ),
             ],
