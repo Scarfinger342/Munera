@@ -109,6 +109,9 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                   const Text('Due Date', style: TextStyle(fontSize: 18)),
                   Spacer(),
                   OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    ),
                     onPressed: () {
                       showDatePicker(
                         context: context,
