@@ -9,6 +9,9 @@ import 'deadlines.dart';
 import 'time_blocking.dart';
 import 'color_parser.dart';
 
+import 'task.dart';
+import 'group.dart';
+
 String prettyPrintJson(dynamic input) {
   var encoder = const JsonEncoder.withIndent(
     '    ',
@@ -32,15 +35,15 @@ Future<void> main() async {
   // var parsedColor = hex.toColor();
   final Directory directory = await getApplicationSupportDirectory();
   final String path = directory.path;
-  AppState.jsonfile = File('$path/munera.json');
-  if (!await AppState.jsonfile.exists()) {
-    await AppState.jsonfile.create();
-    await AppState.jsonfile.writeAsString("{}");
+  File jsonfile = File('$path/munera.json');
+  if (!await jsonfile.exists()) {
+    await jsonfile.create();
+    await jsonfile.writeAsString("{}");
   }
-  final String json = await AppState.jsonfile.readAsString();
-  AppState.data = jsonDecode(json);
-  if (AppState.data.isEmpty) {
-    AppState.data = AppState.defaultSettings();
+  final String json = await jsonfile.readAsString();
+  Map<String, dynamic> data = jsonDecode(json);
+  AppState.init(data);
+  if (data.isEmpty) {
     await AppState.outputJSON();
   }
   runApp(const MyApp());
@@ -48,8 +51,23 @@ Future<void> main() async {
 
 class AppState {
   static final ValueNotifier<int> menuSelection = ValueNotifier<int>(0);
-  static Map<String, dynamic> data = {};
-  static late File jsonfile;
+  static Map<String, dynamic> settings = {};
+  static List<Task> tasks = [];
+  static List<Group> groups = [];
+  // TODO add timeblocks
+  static void init(Map<String, dynamic> data) {
+    if (data.isEmpty) {
+      data = defaultSettings();
+    }
+    settings = data['settings'];
+    for (var task in data['tasks']) {
+      tasks.add(Task.fromJSON(task));
+    }
+    for (var group in data['groups']) {
+      groups.add(Group.fromJSON(group));
+    }
+  }
+
   static Map<String, dynamic> defaultSettings() {
     return {
       "settings": {
@@ -66,6 +84,22 @@ class AppState {
   }
 
   static Future<void> outputJSON() async {
+    Map<String, dynamic> data = {
+      "settings": {},
+      "tasks": [],
+      "groups": [],
+      "timeblocks": [],
+    };
+    data['settings'] = settings;
+    for (var task in tasks) {
+      data['tasks'].add(task.toJSON());
+    }
+    for (var group in groups) {
+      data['groups'].add(group.toJSON());
+    }
+    final Directory directory = await getApplicationSupportDirectory();
+    final String path = directory.path;
+    File jsonfile = File('$path/munera.json');
     await jsonfile.writeAsString(prettyPrintJson(data));
   }
 }
