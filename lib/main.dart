@@ -7,6 +7,7 @@ import 'tasks_table.dart';
 import 'kanban.dart';
 import 'deadlines.dart';
 import 'time_blocking.dart';
+import 'color_parser.dart';
 
 String prettyPrintJson(dynamic input) {
   var encoder = const JsonEncoder.withIndent(
@@ -25,6 +26,10 @@ String prettyPrintJson(dynamic input) {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Color testing
+  // Color myColor = Colors.blue;
+  // var hex = "#${myColor.toARGB32().toRadixString(16)}";
+  // var parsedColor = hex.toColor();
   final Directory directory = await getApplicationSupportDirectory();
   final String path = directory.path;
   AppState.jsonfile = File('$path/munera.json');
