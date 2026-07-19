@@ -1,0 +1,136 @@
+name: Build Desktop Binaries
+
+# Trigger on every push to main, every PR, and manually via the Actions tab.
+# Pushing a tag like "v1.0.0" will also attach the binaries to a GitHub Release.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.44.5"
+
+jobs:
+  # ---------------------------------------------------------------------
+  # WINDOWS
+  # ---------------------------------------------------------------------
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build Windows release
+        run: flutter build windows --release
+
+      - name: Zip artifact
+        run: |
+          Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath windows-build.zip
+        shell: pwsh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: windows-build.zip
+
+  # ---------------------------------------------------------------------
+  # MACOS
+  # ---------------------------------------------------------------------
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+
+      - name: Enable macOS desktop
+        run: flutter config --enable-macos-desktop
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build macOS release
+        run: flutter build macos --release
+
+      - name: Zip artifact
+        run: |
+          cd build/macos/Build/Products/Release
+          zip -r ../../../../../macos-build.zip *.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-build
+          path: macos-build.zip
+
+  # ---------------------------------------------------------------------
+  # LINUX
+  # ---------------------------------------------------------------------
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+
+      - name: Enable Linux desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build Linux release
+        run: flutter build linux --release
+
+      - name: Tar artifact
+        run: |
+          cd build/linux/x64/release/bundle
+          tar -czf ../../../../../linux-build.tar.gz .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: linux-build.tar.gz
+
+  # ---------------------------------------------------------------------
+  # OPTIONAL: attach all three to a GitHub Release when a tag is pushed
+  # ---------------------------------------------------------------------
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/windows-build/windows-build.zip
+            artifacts/macos-build/macos-build.zip
+            artifacts/linux-build/linux-build.tar.gz
