@@ -144,7 +144,6 @@ class _CreateGroupDialogState extends State<CreateGroupDialog> {
 }
 
 Future<Group?> showCreateGroupDialog(BuildContext context) async {
-  // TODO return group
   return await showDialog(
     context: context,
     barrierDismissible: true,
