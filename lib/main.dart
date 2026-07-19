@@ -184,7 +184,7 @@ class _ContentsState extends State<Contents> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: .all(8.0),
+      padding: .all(32.0),
       child: ValueListenableBuilder<int>(
         valueListenable: AppState.menuSelection,
         builder: (context, value, child) {

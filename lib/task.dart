@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 enum Status {
-  todo("Todo", Colors.blueGrey),
-  inprogress("In Progress", Colors.blue),
-  done("Done", Colors.green),
+  todo("Todo", Color(0xFF8E8B86)),
+  inprogress("In Progress", Color(0xFF2783DE)),
+  done("Done", Color(0xFF46A171)),
   na("N/A", null); // Do not change background color
 
   final Color? color;
