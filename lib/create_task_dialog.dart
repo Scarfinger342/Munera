@@ -139,7 +139,9 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                   GroupDropdown(
                     onSelected: (value) {
                       setState(() {
-                        selectedGroup = value;
+                        selectedGroup = value == ""
+                            ? null
+                            : value; // Lord forgive me
                       });
                     },
                   ),

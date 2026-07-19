@@ -1,22 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 enum Status {
-  todo("Todo"),
-  inprogress("In Progress"),
-  done("Done"),
-  na("N/A");
+  todo("Todo", Colors.blueGrey),
+  inprogress("In Progress", Colors.blue),
+  done("Done", Colors.green),
+  na("N/A", null); // Do not change background color
 
+  final Color? color;
   final String label;
-  const Status(this.label);
+  const Status(this.label, this.color);
 }
 
 enum EffortLevel {
-  low("Low"),
-  medium("Medium"),
-  high("High");
+  low("Low", Colors.green),
+  medium("Medium", Colors.orange),
+  high("High", Colors.red);
 
   final String label;
-  const EffortLevel(this.label);
+  final Color color;
+  const EffortLevel(this.label, this.color);
 }
 
 class Task {

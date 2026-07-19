@@ -107,6 +107,22 @@ class AppState {
     // TODO cleanup missing references
     await outputJSON();
   }
+
+  static Task? getTaskByID(String id) {
+    try {
+      return tasks.firstWhere((task) => task.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Group? getGroupByID(String id) {
+    try {
+      return groups.firstWhere((group) => group.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
