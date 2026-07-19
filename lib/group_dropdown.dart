@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:munera/main.dart';
+import 'create_group_dialog.dart';
 import 'utils.dart';
 
 class GroupDropdown extends StatefulWidget {
@@ -40,7 +41,22 @@ class _GroupDropdownState extends State<GroupDropdown> {
       ],
       onSelected: (value) {
         if (value == _addCustomValue) {
-          // showAddGroupDialog(context); TODO
+          showCreateGroupDialog(context).then((group) {
+            if (group == null) {
+              setState(() {
+                selected = _none;
+              });
+            } else {
+              setState(() {
+                AppState.groups.add(group);
+                AppState.outputJSON();
+                selected = group.id;
+                if (widget.onSelected != null) {
+                  widget.onSelected!(group.id);
+                }
+              });
+            }
+          });
         } else {
           setState(() {
             selected = value;
