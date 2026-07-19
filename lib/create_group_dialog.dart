@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'group.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 
