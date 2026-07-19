@@ -60,6 +60,10 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                         value: .done,
                         label: Text(Status.done.label),
                       ),
+                      ButtonSegment<Status>(
+                        value: .na,
+                        label: Text(Status.na.label),
+                      ),
                     ],
                     selected: <Status>{status},
                     onSelectionChanged: (Set<Status> newSelection) {
