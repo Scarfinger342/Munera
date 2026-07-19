@@ -117,7 +117,6 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                     onPressed: () {
                       showDatePicker(
                         context: context,
-                        // TODO make it impossible to create a task at 23:59 that is due on the same day
                         firstDate: DateTime.now(),
                         lastDate: DateTime(9999),
                       ).then((date) {
