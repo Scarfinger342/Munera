@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:munera/confirm_delete_dialog.dart';
 import 'create_task_dialog.dart';
 import 'group.dart';
 import 'main.dart'; // For AppState
@@ -114,9 +115,14 @@ class _TasksTableState extends State<TasksTable> {
                         IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
-                            // TODO add confirmation dialog
-                            setState(() {
-                              AppState.deleteTask(task.id);
+                            showConfirmDeleteDialog(context, task.name).then((
+                              result,
+                            ) {
+                              if (result != null && result == true) {
+                                setState(() {
+                                  AppState.deleteTask(task.id);
+                                });
+                              }
                             });
                           },
                           color: getContrastingIconColor(task),
