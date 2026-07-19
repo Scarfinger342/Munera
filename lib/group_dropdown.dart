@@ -3,7 +3,9 @@ import 'package:munera/main.dart';
 import 'utils.dart';
 
 class GroupDropdown extends StatefulWidget {
-  const GroupDropdown({super.key});
+  final Function(String?)? onSelected;
+
+  const GroupDropdown({super.key, this.onSelected});
 
   @override
   State<GroupDropdown> createState() => _GroupDropdownState();
@@ -11,12 +13,16 @@ class GroupDropdown extends StatefulWidget {
 
 class _GroupDropdownState extends State<GroupDropdown> {
   String? selected;
-  static const String _addCustomValue = "";
+  // This keyword needs to be reserved
+  static const String _addCustomValue = "+";
+  static const String _none = "";
   @override
   Widget build(BuildContext context) {
     // Use Strings as group IDs and a blank string for the New button
     return DropdownMenu<String>(
+      initialSelection: selected,
       dropdownMenuEntries: <DropdownMenuEntry<String>>[
+        DropdownMenuEntry(value: _none, label: 'None'),
         for (var group in AppState.groups)
           DropdownMenuEntry(
             value: group.id,
@@ -32,6 +38,18 @@ class _GroupDropdownState extends State<GroupDropdown> {
           leadingIcon: Icon(Icons.add),
         ),
       ],
+      onSelected: (value) {
+        if (value == _addCustomValue) {
+          // showAddGroupDialog(context); TODO
+        } else {
+          setState(() {
+            selected = value;
+            if (widget.onSelected != null) {
+              widget.onSelected!(value);
+            }
+          });
+        }
+      },
     );
   }
 }

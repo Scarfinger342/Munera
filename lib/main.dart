@@ -7,7 +7,6 @@ import 'tasks_table.dart';
 import 'kanban.dart';
 import 'deadlines.dart';
 import 'time_blocking.dart';
-import 'color_parser.dart';
 
 import 'task.dart';
 import 'group.dart';
@@ -101,6 +100,12 @@ class AppState {
     final String path = directory.path;
     File jsonfile = File('$path/munera.json');
     await jsonfile.writeAsString(prettyPrintJson(data));
+  }
+
+  static Future<void> deleteTask(String id) async {
+    tasks.removeWhere((task) => task.id == id);
+    // TODO cleanup missing references
+    await outputJSON();
   }
 }
 

@@ -14,7 +14,7 @@ class CreateTaskDialog extends StatefulWidget {
 class _CreateTaskDialogState extends State<CreateTaskDialog> {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
-  // TODO group picker
+  String? selectedGroup;
   Status status = .todo;
   EffortLevel effortLevel = .low;
   DateTime dueDate = DateTime.now();
@@ -136,7 +136,13 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                     style: TextStyle(fontSize: 18),
                   ),
                   Spacer(),
-                  GroupDropdown(),
+                  GroupDropdown(
+                    onSelected: (value) {
+                      setState(() {
+                        selectedGroup = value;
+                      });
+                    },
+                  ),
                 ],
               ),
             ],
@@ -168,6 +174,7 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                 status: status,
                 effortLevel: effortLevel,
                 due: dueDate,
+                group: selectedGroup,
               );
               Navigator.pop(context, task);
             }
