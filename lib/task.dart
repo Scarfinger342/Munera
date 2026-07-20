@@ -27,8 +27,8 @@ class Task {
   String name;
   String? group;
   Status status;
-  EffortLevel? effortLevel;
-  DateTime? due;
+  EffortLevel effortLevel;
+  DateTime due;
   final DateTime createdAt;
   DateTime updatedAt;
   Task({
@@ -36,17 +36,17 @@ class Task {
     required this.name,
     this.group,
     required this.status,
-    this.effortLevel,
-    this.due,
+    required this.effortLevel,
+    required this.due,
     required this.createdAt,
     required this.updatedAt,
   });
   factory Task.create({
     required String name,
     String? group,
-    Status? status,
-    EffortLevel? effortLevel,
-    DateTime? due,
+    required Status status,
+    required EffortLevel effortLevel,
+    required DateTime due,
   }) {
     Uuid uuid = Uuid();
     String id = uuid.v4();
@@ -54,7 +54,7 @@ class Task {
       id: id,
       name: name,
       group: group,
-      status: status ?? Status.todo,
+      status: status,
       effortLevel: effortLevel,
       due: due,
       createdAt: DateTime.now().toUtc(),
@@ -66,10 +66,8 @@ class Task {
     name: object['name'],
     group: object.containsKey('group') ? object['group'] : null,
     status: Status.values.byName(object['status']),
-    effortLevel: object.containsKey('effortLevel')
-        ? EffortLevel.values.byName(object['effortLevel'])
-        : null,
-    due: object.containsKey('due') ? DateTime.parse(object['due']) : null,
+    effortLevel: EffortLevel.values.byName(object['effortLevel']),
+    due: DateTime.parse(object['due']),
     createdAt: DateTime.parse(object['createdAt']),
     updatedAt: DateTime.parse(object['updatedAt']),
   );
@@ -78,12 +76,12 @@ class Task {
       'id': id,
       'name': name,
       'status': status.name,
+      'effortLevel': effortLevel.name,
+      'due': due.toIso8601String(),
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
     };
     if (group != null) out['group'] = group;
-    if (effortLevel != null) out['effortLevel'] = effortLevel!.name;
-    if (due != null) out['due'] = due!.toIso8601String();
     return out;
   }
 }

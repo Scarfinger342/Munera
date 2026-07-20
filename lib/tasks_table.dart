@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:munera/confirm_delete_dialog.dart';
+import 'package:munera/edit_task_dialog.dart';
 import 'create_task_dialog.dart';
 import 'group.dart';
 import 'main.dart'; // For AppState
@@ -78,6 +79,27 @@ class _TasksTableState extends State<TasksTable> {
                             task.name,
                             style: getContrastingRowTextColor(task),
                           ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  EditTaskDialog(property: .name, task: task),
+                            ).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .name =
+                                      value; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              }
+                            });
+                          },
                         ),
                         DataCell(
                           Container(
@@ -99,35 +121,94 @@ class _TasksTableState extends State<TasksTable> {
                                   : getContrastingRowTextColor(task),
                             ),
                           ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  EditTaskDialog(property: .status, task: task),
+                            ).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .status =
+                                      value; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              }
+                            });
+                          },
                         ),
                         DataCell(
                           Text(
-                            task.due != null
-                                ? DateFormat('d MMMM yyyy').format(task.due!)
-                                : "",
+                            DateFormat('d MMMM yyyy').format(task.due),
                             style: getContrastingRowTextColor(task),
                           ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  EditTaskDialog(property: .due, task: task),
+                            ).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .due =
+                                      value; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              }
+                            });
+                          },
                         ),
                         DataCell(
                           Container(
                             padding: .symmetric(vertical: 4.0, horizontal: 8.0),
                             decoration: BoxDecoration(
-                              color: task.effortLevel?.color,
+                              color: task.effortLevel.color,
                               borderRadius: BorderRadius.circular(20.0),
                             ),
                             child: Text(
-                              task.effortLevel != null
-                                  ? task.effortLevel!.label
-                                  : "",
-                              style: task.effortLevel != null
-                                  ? TextStyle(
-                                      color: getContrastingTextColor(
-                                        task.effortLevel!.color,
-                                      ),
-                                    )
-                                  : getContrastingRowTextColor(task),
+                              task.effortLevel.label,
+                              style: TextStyle(
+                                color: getContrastingTextColor(
+                                  task.effortLevel.color,
+                                ),
+                              ),
                             ),
                           ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => EditTaskDialog(
+                                property: .effortLevel,
+                                task: task,
+                              ),
+                            ).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .effortLevel =
+                                      value; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              }
+                            });
+                          },
                         ),
                         DataCell(
                           Text(
@@ -136,23 +217,56 @@ class _TasksTableState extends State<TasksTable> {
                                 : "",
                             style: getContrastingRowTextColor(task),
                           ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  EditTaskDialog(property: .group, task: task),
+                            ).then((value) {
+                              if (value != null && value != "") {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .group =
+                                      value; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              } else if (value == "") {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .group =
+                                      null; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              }
+                            });
+                          },
                         ),
                         DataCell(
-                          IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              showConfirmDeleteDialog(context, task.name).then((
-                                result,
-                              ) {
-                                if (result != null && result == true) {
-                                  setState(() {
-                                    AppState.deleteTask(task.id);
-                                  });
-                                }
-                              });
-                            },
+                          Icon(
+                            Icons.delete,
                             color: getContrastingIconColor(task),
                           ),
+                          onTap: () {
+                            showConfirmDeleteDialog(context, task.name).then((
+                              result,
+                            ) {
+                              if (result != null && result == true) {
+                                setState(() {
+                                  AppState.deleteTask(task.id);
+                                });
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
