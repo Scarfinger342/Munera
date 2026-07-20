@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'task.dart';
-import 'utils.dart';
+import '../models/task.dart';
+import '../utils.dart';
 
 class Kanban extends StatefulWidget {
   const Kanban({super.key});

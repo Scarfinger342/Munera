@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'group.dart';
+import '../models/group.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 class CreateGroupDialog extends StatefulWidget {
   const CreateGroupDialog({super.key});

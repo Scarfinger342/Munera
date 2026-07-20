@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'task.dart';
-import 'group_dropdown.dart';
+import '../main.dart';
+import '../models/task.dart';
+import '../widgets/group_dropdown.dart';
 import 'package:intl/intl.dart';
 
 class CreateTaskDialog extends StatefulWidget {

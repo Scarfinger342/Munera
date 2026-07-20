@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'color_parser.dart';
+import '../color_parser.dart';
 
 class Group {
   final String id;

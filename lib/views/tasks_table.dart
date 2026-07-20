@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:munera/confirm_delete_dialog.dart';
-import 'package:munera/edit_task_dialog.dart';
-import 'create_task_dialog.dart';
-import 'group.dart';
-import 'main.dart'; // For AppState
-import 'task.dart';
-import 'utils.dart';
+import 'package:munera/dialogs/confirm_delete_dialog.dart';
+import 'package:munera/dialogs/edit_task_dialog.dart';
+import '../dialogs/create_task_dialog.dart';
+import '../models/group.dart';
+import '../main.dart'; // For AppState
+import '../models/task.dart';
+import '../utils.dart';
 
 // I am the greatest programmer on earth
 TextStyle? getContrastingRowTextColor(Task task) {

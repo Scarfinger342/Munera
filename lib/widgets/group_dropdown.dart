@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:munera/main.dart';
-import 'create_group_dialog.dart';
-import 'utils.dart';
+import '../dialogs/create_group_dialog.dart';
+import '../utils.dart';
 
 class GroupDropdown extends StatefulWidget {
   final Function(String?)? onSelected;

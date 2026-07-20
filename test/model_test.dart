@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:munera/task.dart';
-import 'package:munera/group.dart';
+import 'package:munera/models/task.dart';
+import 'package:munera/models/group.dart';
 import 'package:test/test.dart';
 
 void main() {
