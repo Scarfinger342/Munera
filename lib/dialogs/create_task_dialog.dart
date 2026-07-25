@@ -45,33 +45,22 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
               Row(
                 children: [
                   const Text('Status', style: TextStyle(fontSize: 18)),
-                  const SizedBox(width: 20),
-                  SegmentedButton<Status>(
-                    segments: <ButtonSegment<Status>>[
-                      ButtonSegment<Status>(
-                        value: .todo,
-                        label: Text(Status.todo.label),
-                      ),
-                      ButtonSegment<Status>(
-                        value: .inprogress,
-                        label: Text(Status.inprogress.label),
-                      ),
-                      ButtonSegment<Status>(
-                        value: .done,
-                        label: Text(Status.done.label),
-                      ),
-                      ButtonSegment<Status>(
-                        value: .na,
-                        label: Text(Status.na.label),
-                      ),
-                    ],
-                    selected: <Status>{status},
-                    onSelectionChanged: (Set<Status> newSelection) {
+                  Spacer(),
+                  DropdownMenu<Status>(
+                    initialSelection: status,
+                    onSelected: (Status? newSelection) {
                       setState(() {
-                        status = newSelection.first;
+                        status = newSelection!;
                       });
                     },
-                    showSelectedIcon: false,
+                    dropdownMenuEntries: Status.values
+                        .map(
+                          (Status s) => DropdownMenuEntry<Status>(
+                            value: s,
+                            label: s.label,
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
@@ -79,29 +68,22 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
               Row(
                 children: [
                   const Text('Effort Level', style: TextStyle(fontSize: 18)),
-                  Spacer(),
-                  SegmentedButton<EffortLevel>(
-                    segments: <ButtonSegment<EffortLevel>>[
-                      ButtonSegment<EffortLevel>(
-                        value: .low,
-                        label: Text(EffortLevel.low.label),
-                      ),
-                      ButtonSegment<EffortLevel>(
-                        value: .medium,
-                        label: Text(EffortLevel.medium.label),
-                      ),
-                      ButtonSegment<EffortLevel>(
-                        value: .high,
-                        label: Text(EffortLevel.high.label),
-                      ),
-                    ],
-                    selected: <EffortLevel>{effortLevel},
-                    onSelectionChanged: (Set<EffortLevel> newSelection) {
+                  const SizedBox(width: 20),
+                  DropdownMenu<EffortLevel>(
+                    initialSelection: effortLevel,
+                    onSelected: (EffortLevel? newSelection) {
                       setState(() {
-                        effortLevel = newSelection.first;
+                        effortLevel = newSelection!;
                       });
                     },
-                    showSelectedIcon: false,
+                    dropdownMenuEntries: EffortLevel.values
+                        .map(
+                          (EffortLevel s) => DropdownMenuEntry<EffortLevel>(
+                            value: s,
+                            label: s.label,
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),

@@ -146,14 +146,23 @@ class MyApp extends StatelessWidget {
         ),
       ),
       themeMode: .dark,
-      home: Scaffold(
-        body: Row(
-          crossAxisAlignment: .start,
-          children: [
-            Expanded(flex: 1, child: Sidebar()),
-            Expanded(flex: 4, child: Contents()),
-          ],
-        ),
+      home: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isMobile = constraints.maxWidth < 1000;
+          return Scaffold(
+            appBar: isMobile ? AppBar(title: const Text('Munera')) : null,
+            drawer: isMobile ? Drawer(child: Sidebar()) : null,
+            body: isMobile
+                ? Contents()
+                : Row(
+                    crossAxisAlignment: .start,
+                    children: [
+                      Expanded(flex: 1, child: Sidebar()),
+                      Expanded(flex: 4, child: Contents()),
+                    ],
+                  ),
+          );
+        },
       ),
     );
   }

@@ -71,29 +71,19 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
           children: [
             const Text('Status', style: TextStyle(fontSize: 18)),
             const SizedBox(width: 20),
-            SegmentedButton<Status>(
-              segments: <ButtonSegment<Status>>[
-                ButtonSegment<Status>(
-                  value: .todo,
-                  label: Text(Status.todo.label),
-                ),
-                ButtonSegment<Status>(
-                  value: .inprogress,
-                  label: Text(Status.inprogress.label),
-                ),
-                ButtonSegment<Status>(
-                  value: .done,
-                  label: Text(Status.done.label),
-                ),
-                ButtonSegment<Status>(value: .na, label: Text(Status.na.label)),
-              ],
-              selected: <Status>{status},
-              onSelectionChanged: (Set<Status> newSelection) {
+            DropdownMenu<Status>(
+              initialSelection: status,
+              onSelected: (Status? newSelection) {
                 setState(() {
-                  status = newSelection.first;
+                  status = newSelection!;
                 });
               },
-              showSelectedIcon: false,
+              dropdownMenuEntries: Status.values
+                  .map(
+                    (Status s) =>
+                        DropdownMenuEntry<Status>(value: s, label: s.label),
+                  )
+                  .toList(),
             ),
           ],
         );
