@@ -148,6 +148,7 @@ class MyApp extends StatelessWidget {
       themeMode: .dark,
       home: Scaffold(
         body: Row(
+          crossAxisAlignment: .start,
           children: [
             Expanded(flex: 1, child: Sidebar()),
             Expanded(flex: 4, child: Contents()),
