@@ -12,6 +12,16 @@ enum Status {
   const Status(this.label, this.color);
 }
 
+enum Priority {
+  low("Low", Colors.green),
+  medium("Medium", Colors.orange),
+  high("High", Colors.red);
+
+  final String label;
+  final Color color;
+  const Priority(this.label, this.color);
+}
+
 enum EffortLevel {
   low("Low", Colors.green),
   medium("Medium", Colors.orange),
@@ -27,6 +37,7 @@ class Task {
   String name;
   String? group;
   Status status;
+  Priority priority;
   EffortLevel effortLevel;
   DateTime due;
   final DateTime createdAt;
@@ -36,6 +47,7 @@ class Task {
     required this.name,
     this.group,
     required this.status,
+    required this.priority,
     required this.effortLevel,
     required this.due,
     required this.createdAt,
@@ -45,6 +57,7 @@ class Task {
     required String name,
     String? group,
     required Status status,
+    required Priority priority,
     required EffortLevel effortLevel,
     required DateTime due,
   }) {
@@ -55,6 +68,7 @@ class Task {
       name: name,
       group: group,
       status: status,
+      priority: priority,
       effortLevel: effortLevel,
       due: due,
       createdAt: DateTime.now().toUtc(),
@@ -66,6 +80,7 @@ class Task {
     name: object['name'],
     group: object.containsKey('group') ? object['group'] : null,
     status: Status.values.byName(object['status']),
+    priority: Priority.values.byName(object['priority']),
     effortLevel: EffortLevel.values.byName(object['effortLevel']),
     due: DateTime.parse(object['due']),
     createdAt: DateTime.parse(object['createdAt']),
@@ -76,6 +91,7 @@ class Task {
       'id': id,
       'name': name,
       'status': status.name,
+      'priority': priority.name,
       'effortLevel': effortLevel.name,
       'due': due.toIso8601String(),
       'createdAt': createdAt.toIso8601String(),

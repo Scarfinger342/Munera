@@ -49,6 +49,7 @@ class _TasksTableState extends State<TasksTable> {
               child: DataTable(
                 columns: <DataColumn>[
                   DataColumn(label: const Text('Name')),
+                  DataColumn(label: const Text('Priority')),
                   DataColumn(label: const Text('Status')),
                   DataColumn(label: const Text('Due Date')),
                   DataColumn(label: const Text('Effort Level')),
@@ -90,6 +91,50 @@ class _TasksTableState extends State<TasksTable> {
                                   AppState.tasks
                                           .firstWhere((t) => t.id == task.id)
                                           .name =
+                                      value; // Make sure we edit the original and not a copy
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .updatedAt =
+                                      DateTime.now();
+                                  AppState.outputJSON();
+                                });
+                              }
+                            });
+                          },
+                        ),
+                        DataCell(
+                          Container(
+                            padding: .symmetric(vertical: 4.0, horizontal: 8.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: task
+                                  .priority
+                                  .color, // null is an accepted value
+                            ),
+                            child: Text(
+                              task.priority.label,
+                              style: task.status.color != null
+                                  ? TextStyle(
+                                      color: getContrastingTextColor(
+                                        task.priority.color,
+                                      ),
+                                    )
+                                  : getContrastingRowTextColor(task),
+                            ),
+                          ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => EditTaskDialog(
+                                property: .priority,
+                                task: task,
+                              ),
+                            ).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  AppState.tasks
+                                          .firstWhere((t) => t.id == task.id)
+                                          .priority =
                                       value; // Make sure we edit the original and not a copy
                                   AppState.tasks
                                           .firstWhere((t) => t.id == task.id)

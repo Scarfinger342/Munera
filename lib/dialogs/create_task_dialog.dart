@@ -16,6 +16,7 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
   final nameController = TextEditingController();
   String? selectedGroup;
   Status status = .todo;
+  Priority priority = .low;
   EffortLevel effortLevel = .low;
   DateTime dueDate = DateTime.now();
   @override
@@ -56,6 +57,29 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
                     dropdownMenuEntries: Status.values
                         .map(
                           (Status s) => DropdownMenuEntry<Status>(
+                            value: s,
+                            label: s.label,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  const Text('Priority', style: TextStyle(fontSize: 18)),
+                  Spacer(),
+                  DropdownMenu<Priority>(
+                    initialSelection: priority,
+                    onSelected: (Priority? newSelection) {
+                      setState(() {
+                        priority = newSelection!;
+                      });
+                    },
+                    dropdownMenuEntries: Priority.values
+                        .map(
+                          (Priority s) => DropdownMenuEntry<Priority>(
                             value: s,
                             label: s.label,
                           ),
@@ -159,6 +183,7 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
               final Task task = Task.create(
                 name: nameController.text,
                 status: status,
+                priority: priority,
                 effortLevel: effortLevel,
                 due: dueDate,
                 group: selectedGroup,

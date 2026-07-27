@@ -158,14 +158,14 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                   horizontal: 8.0,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: task.effortLevel.color,
+                                  color: task.priority.color,
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
                                 child: Text(
-                                  task.effortLevel.label,
+                                  task.priority.label,
                                   style: TextStyle(
                                     color: getContrastingTextColor(
-                                      task.effortLevel.color,
+                                      task.priority.color,
                                     ),
                                   ),
                                 ),

@@ -4,7 +4,7 @@ import '../widgets/group_dropdown.dart';
 import '../main.dart';
 import '../models/task.dart';
 
-enum Property { name, group, status, effortLevel, due }
+enum Property { name, group, status, priority, effortLevel, due }
 
 class EditTaskDialog extends StatefulWidget {
   // We take a copy of the task as a parameter to find the correct initial value
@@ -21,6 +21,7 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
   final nameController = TextEditingController();
   String? group;
   late Status status;
+  late Priority priority;
   late EffortLevel effortLevel;
   late DateTime due;
   @override
@@ -29,6 +30,7 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
     nameController.text = widget.task.name;
     group = widget.task.group;
     status = widget.task.status;
+    priority = widget.task.priority;
     effortLevel = widget.task.effortLevel;
     due = widget.task.due;
   }
@@ -87,6 +89,28 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
             ),
           ],
         );
+      case .priority:
+        return Row(
+          children: [
+            const Text('Priority', style: TextStyle(fontSize: 18)),
+            Spacer(),
+            DropdownMenu<Priority>(
+              initialSelection: priority,
+              onSelected: (Priority? newSelection) {
+                setState(() {
+                  priority = newSelection!;
+                });
+              },
+              dropdownMenuEntries: Priority.values
+                  .map(
+                    (Priority s) =>
+                        DropdownMenuEntry<Priority>(value: s, label: s.label),
+                  )
+                  .toList(),
+            ),
+          ],
+        );
+
       case .effortLevel:
         return Row(
           children: [
@@ -182,6 +206,9 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
                   break;
                 case .status:
                   Navigator.pop(context, status);
+                  break;
+                case .priority:
+                  Navigator.pop(context, priority);
                   break;
                 case .effortLevel:
                   Navigator.pop(context, effortLevel);
