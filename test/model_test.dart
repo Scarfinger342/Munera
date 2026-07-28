@@ -12,6 +12,7 @@ void main() {
       "name": "Test",
       "group": "809e4b6e-61a6-4abe-b71a-fabd900a6f2d",
       "status": "todo",
+      "priority": "low",
       "effortLevel": "low",
       "due": "2026-07-17T14:29:59.000Z",
       "createdAt": "2026-07-10T03:34:26.000Z",
@@ -22,6 +23,7 @@ void main() {
     expect(task.name, "Test");
     expect(task.group, "809e4b6e-61a6-4abe-b71a-fabd900a6f2d");
     expect(task.status, Status.todo);
+    expect(task.priority, Priority.low);
     expect(task.effortLevel, EffortLevel.low);
     expect(task.due, dueDate);
     expect(task.createdAt, createdDate);
