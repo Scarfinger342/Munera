@@ -128,6 +128,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                   ),
                                 ),
                               ),
+                              SizedBox(width: 16),
                               if (task.group != null)
                                 Container(
                                   padding: .symmetric(
@@ -151,6 +152,21 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                     ),
                                   ),
                                 ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: .center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  DateFormat('d MMMM yyyy').format(task.due),
+                                  style: TextStyle(
+                                    color: getContrastingTextColor(
+                                      darken(widget.status.color!, 0.4),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               SizedBox(width: 16),
                               Container(
                                 padding: .symmetric(
@@ -170,20 +186,6 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: .center,
-                            children: [
-                              Text(
-                                DateFormat('d MMMM yyyy').format(task.due),
-                                style: TextStyle(
-                                  color: getContrastingTextColor(
-                                    darken(widget.status.color!, 0.4),
-                                  ),
-                                ),
-                              ),
-                              Spacer(),
                             ],
                           ),
                         ],
