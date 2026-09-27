@@ -9,35 +9,38 @@ class Kanban extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: ((context, constraints) {
-        final isWide = constraints.maxWidth > 940;
-        return isWide
-            ? Row(
-                crossAxisAlignment: .start,
-                mainAxisAlignment: .center,
-                spacing: 50.0,
-                children: [
-                  // TODO drag and drop
-                  KanbanColumn(status: Status.todo, scrollable: true),
-                  KanbanColumn(status: Status.inprogress, scrollable: true),
-                  KanbanColumn(status: Status.done, scrollable: true),
-                ],
-              )
-            : SingleChildScrollView(
-                scrollDirection: .vertical,
-                child: Column(
-                  crossAxisAlignment: .stretch,
+    return Container(
+      padding: .all(32.0),
+      child: LayoutBuilder(
+        builder: ((context, constraints) {
+          final isWide = constraints.maxWidth > 940;
+          return isWide
+              ? Row(
+                  crossAxisAlignment: .start,
+                  mainAxisAlignment: .center,
                   spacing: 50.0,
                   children: [
                     // TODO drag and drop
-                    KanbanColumn(status: Status.todo),
-                    KanbanColumn(status: Status.inprogress),
-                    KanbanColumn(status: Status.done),
+                    KanbanColumn(status: Status.todo, scrollable: true),
+                    KanbanColumn(status: Status.inprogress, scrollable: true),
+                    KanbanColumn(status: Status.done, scrollable: true),
                   ],
-                ),
-              );
-      }),
+                )
+              : SingleChildScrollView(
+                  scrollDirection: .vertical,
+                  child: Column(
+                    crossAxisAlignment: .stretch,
+                    spacing: 50.0,
+                    children: [
+                      // TODO drag and drop
+                      KanbanColumn(status: Status.todo),
+                      KanbanColumn(status: Status.inprogress),
+                      KanbanColumn(status: Status.done),
+                    ],
+                  ),
+                );
+        }),
+      ),
     );
   }
 }

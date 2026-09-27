@@ -152,7 +152,15 @@ class MyApp extends StatelessWidget {
           bool isMobile = constraints.maxWidth < 1000;
           return Scaffold(
             appBar: isMobile ? AppBar(title: const Text('Munera')) : null,
-            drawer: isMobile ? Drawer(child: Sidebar()) : null,
+            drawer: isMobile
+                ? Drawer(
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 80.0),
+                      color: Theme.of(context).colorScheme.surfaceContainer,
+                      child: Sidebar(),
+                    ),
+                  )
+                : null,
             body: isMobile
                 ? Contents()
                 : Row(
@@ -194,14 +202,11 @@ class _ContentsState extends State<Contents> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: .all(32.0),
-      child: ValueListenableBuilder<int>(
-        valueListenable: AppState.menuSelection,
-        builder: (context, value, child) {
-          return getWidget();
-        },
-      ),
+    return ValueListenableBuilder<int>(
+      valueListenable: AppState.menuSelection,
+      builder: (context, value, child) {
+        return getWidget();
+      },
     );
   }
 }

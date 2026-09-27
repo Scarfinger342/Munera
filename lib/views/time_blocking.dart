@@ -10,6 +10,6 @@ class TimeBlocking extends StatefulWidget {
 class _TimeBlockingState extends State<TimeBlocking> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(padding: .all(32.0), child: const Placeholder());
   }
 }
