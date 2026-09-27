@@ -75,6 +75,7 @@ class AppState {
         "longBreakLength": 15,
         "longBreakEveryTh": 4,
         "useSubjects": true,
+        "includeWeekends": false,
       },
       "tasks": [],
       "groups": [],
