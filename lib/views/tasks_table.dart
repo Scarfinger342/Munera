@@ -53,7 +53,7 @@ class _TasksTableState extends State<TasksTable> {
                     DataColumn(label: const Text('Name')),
                     DataColumn(label: const Text('Priority')),
                     DataColumn(label: const Text('Status')),
-                    DataColumn(label: const Text('Due Date')),
+                    DataColumn(label: const Text('Deadline')),
                     DataColumn(label: const Text('Effort Level')),
                     DataColumn(
                       label: Text(

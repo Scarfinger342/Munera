@@ -114,7 +114,7 @@ class _CreateTaskDialogState extends State<CreateTaskDialog> {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const Text('Due Date', style: TextStyle(fontSize: 18)),
+                  const Text('Deadline', style: TextStyle(fontSize: 18)),
                   Spacer(),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(

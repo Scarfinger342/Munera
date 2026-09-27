@@ -59,6 +59,11 @@ class _DeadlinesState extends State<Deadlines> {
                     DeadlinesDay(),
                     DeadlinesDay(),
                     DeadlinesDay(),
+                    DeadlinesDay(),
+                    DeadlinesDay(),
+                    DeadlinesDay(),
+                    DeadlinesDay(),
+                    DeadlinesDay(),
                   ],
                 );
               },

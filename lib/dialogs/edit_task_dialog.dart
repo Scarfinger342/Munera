@@ -144,7 +144,7 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
       case .due:
         return Row(
           children: [
-            const Text('Due Date', style: TextStyle(fontSize: 18)),
+            const Text('Deadline', style: TextStyle(fontSize: 18)),
             const SizedBox(width: 20),
             OutlinedButton(
               style: OutlinedButton.styleFrom(
