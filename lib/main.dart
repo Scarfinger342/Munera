@@ -217,6 +217,7 @@ class _SidebarState extends State<Sidebar> {
     setState(() {
       AppState.menuSelection.value = index;
     });
+    Scaffold.of(context).closeDrawer();
   }
 
   @override
