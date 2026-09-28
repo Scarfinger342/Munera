@@ -171,6 +171,8 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                 ),
                               ),
                               SizedBox(width: 16),
+                              Text('P:', style: TextStyle(fontWeight: .bold)),
+                              SizedBox(width: 8),
                               Container(
                                 padding: .symmetric(
                                   vertical: 4.0,

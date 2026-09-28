@@ -146,7 +146,9 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      themeMode: .dark,
+      themeMode: MediaQuery.platformBrightnessOf(context) == Brightness.dark
+          ? .dark
+          : .light,
       home: LayoutBuilder(
         builder: (context, constraints) {
           bool isMobile = constraints.maxWidth < 1000;
