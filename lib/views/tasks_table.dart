@@ -30,6 +30,16 @@ Color? getContrastingIconColor(Task task) {
   }
 }
 
+String formatMMSS(int totalSeconds) {
+  final duration = Duration(seconds: totalSeconds);
+
+  // Extracts hours and remaining minutes
+  String hours = duration.inHours.toString().padLeft(2, '0');
+  String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+
+  return '$hours:$minutes';
+}
+
 class TasksTable extends StatefulWidget {
   const TasksTable({super.key});
 
@@ -56,6 +66,7 @@ class _TasksTableState extends State<TasksTable> {
                     DataColumn(label: const Text('Status')),
                     DataColumn(label: const Text('Deadline')),
                     DataColumn(label: const Text('Effort Level')),
+                    DataColumn(label: const Text('Time Spent')),
                     DataColumn(
                       label: Text(
                         AppState.settings['useSubjects'] ? 'Subject' : 'Group',
@@ -228,6 +239,7 @@ class _TasksTableState extends State<TasksTable> {
                               });
                             },
                           ),
+                          DataCell(Text(formatMMSS(task.timeSpent))),
                           DataCell(
                             Text(
                               task.group != null

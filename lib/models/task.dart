@@ -40,6 +40,7 @@ class Task {
   Priority priority;
   EffortLevel effortLevel;
   DateTime due;
+  int timeSpent;
   final DateTime createdAt;
   DateTime updatedAt;
   Task({
@@ -50,6 +51,7 @@ class Task {
     required this.priority,
     required this.effortLevel,
     required this.due,
+    required this.timeSpent,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -71,6 +73,7 @@ class Task {
       priority: priority,
       effortLevel: effortLevel,
       due: due,
+      timeSpent: 0,
       createdAt: DateTime.now().toUtc(),
       updatedAt: DateTime.now().toUtc(),
     );
@@ -83,6 +86,7 @@ class Task {
     priority: Priority.values.byName(object['priority']),
     effortLevel: EffortLevel.values.byName(object['effortLevel']),
     due: DateTime.parse(object['due']),
+    timeSpent: object['timeSpent'],
     createdAt: DateTime.parse(object['createdAt']),
     updatedAt: DateTime.parse(object['updatedAt']),
   );
@@ -94,6 +98,7 @@ class Task {
       'priority': priority.name,
       'effortLevel': effortLevel.name,
       'due': due.toIso8601String(),
+      'timeSpent': timeSpent,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
     };

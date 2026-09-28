@@ -15,6 +15,7 @@ void main() {
       "priority": "low",
       "effortLevel": "low",
       "due": "2026-07-17T14:29:59.000Z",
+      "timeSpent": 60, // seconds
       "createdAt": "2026-07-10T03:34:26.000Z",
       "updatedAt": "2026-07-10T03:34:26.000Z",
     };
@@ -26,6 +27,7 @@ void main() {
     expect(task.priority, Priority.low);
     expect(task.effortLevel, EffortLevel.low);
     expect(task.due, dueDate);
+    expect(task.timeSpent, 60);
     expect(task.createdAt, createdDate);
     expect(task.updatedAt, createdDate);
     Map<String, dynamic> newObject = task.toJSON();

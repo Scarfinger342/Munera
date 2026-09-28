@@ -10,8 +10,8 @@ class Deadlines extends StatefulWidget {
 class _DeadlinesState extends State<Deadlines> {
   @override
   Widget build(BuildContext context) {
-    const int _crossAxisCount = 5;
-    const int _rowCount = 6;
+    const int crossAxisCount = 5;
+    const int rowCount = 6;
     return Container(
       padding: .only(top: 32.0),
       child: Column(
@@ -26,11 +26,11 @@ class _DeadlinesState extends State<Deadlines> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final tileWidth = constraints.maxWidth / _crossAxisCount;
-                final tileHeight = constraints.maxHeight / _rowCount;
+                final tileWidth = constraints.maxWidth / crossAxisCount;
+                final tileHeight = constraints.maxHeight / rowCount;
                 final aspectRatio = tileWidth / tileHeight;
                 return GridView.count(
-                  crossAxisCount: _crossAxisCount,
+                  crossAxisCount: crossAxisCount,
                   physics: const NeverScrollableScrollPhysics(),
                   childAspectRatio: aspectRatio,
                   children: [
