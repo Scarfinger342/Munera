@@ -2,21 +2,21 @@
 flutter_launcher_icons:
   image_path: "icon/icon-512x512.png"
 
-  # android: "launcher_icon"
+  android: "launcher_icon"
   # # image_path_android: "icon/icon-512x512.png"
   # min_sdk_android: 21 # android min sdk min:16, default 21
-  # # adaptive_icon_background: "icon/background.png"
-  # # adaptive_icon_foreground: "icon/foreground.png"
-  # # adaptive_icon_foreground_inset: 16
-  # # adaptive_icon_monochrome: "icon/monochrome.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "icon/icon-512x512.png"
+  adaptive_icon_foreground_inset: 24
+  adaptive_icon_monochrome: "icon/android-monochrome-icon-512x512.png"
 
-  # ios: true
+  ios: true
   # # image_path_ios: "icon/icon-512x512.png"
-  # remove_alpha_ios: true
+  remove_alpha_ios: true
   # # image_path_ios_dark_transparent: "icon/icon_dark.png"
   # # image_path_ios_tinted_grayscale: "icon/icon_tinted.png"
   # # desaturate_tinted_to_grayscale_ios: true
-  # # background_color_ios: "#ffffff"
+  background_color_ios: "#ffffff"
 
   web:
     generate: true
@@ -30,3 +30,4 @@ flutter_launcher_icons:
   macos:
     generate: true
     image_path: "icon/icon-512x512.png"
+  
