@@ -7,6 +7,7 @@ import '../models/group.dart';
 import '../main.dart'; // For AppState
 import '../models/task.dart';
 import '../utils.dart';
+import '../widgets/colored_box.dart' as m;
 
 // I am the greatest programmer on earth
 TextStyle? getContrastingRowTextColor(Task task) {
@@ -105,26 +106,11 @@ class _TasksTableState extends State<TasksTable> {
                             },
                           ),
                           DataCell(
-                            Container(
-                              padding: .symmetric(
-                                vertical: 4.0,
-                                horizontal: 8.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: task
-                                    .priority
-                                    .color, // null is an accepted value
-                              ),
-                              child: Text(
-                                task.priority.label,
-                                style: task.status.color != null
-                                    ? TextStyle(
-                                        color: getContrastingTextColor(
-                                          task.priority.color,
-                                        ),
-                                      )
-                                    : getContrastingRowTextColor(task),
+                            m.ColoredBox(
+                              text: task.priority.label,
+                              color: task.priority.color,
+                              textColor: getContrastingTextColor(
+                                task.priority.color,
                               ),
                             ),
                             onTap: () {
@@ -152,27 +138,12 @@ class _TasksTableState extends State<TasksTable> {
                             },
                           ),
                           DataCell(
-                            Container(
-                              padding: .symmetric(
-                                vertical: 4.0,
-                                horizontal: 8.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: task
-                                    .status
-                                    .color, // null is an accepted value
-                              ),
-                              child: Text(
-                                task.status != .na ? task.status.label : "",
-                                style: task.status.color != null
-                                    ? TextStyle(
-                                        color: getContrastingTextColor(
-                                          task.status.color!,
-                                        ),
-                                      )
-                                    : getContrastingRowTextColor(task),
-                              ),
+                            m.ColoredBox(
+                              text: task.status.label,
+                              color: task.status.color,
+                              textColor: task.status.color != null
+                                  ? getContrastingTextColor(task.status.color!)
+                                  : getContrastingRowTextColor(task)?.color!,
                             ),
                             onTap: () {
                               showDialog(
@@ -226,22 +197,11 @@ class _TasksTableState extends State<TasksTable> {
                             },
                           ),
                           DataCell(
-                            Container(
-                              padding: .symmetric(
-                                vertical: 4.0,
-                                horizontal: 8.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: task.effortLevel.color,
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Text(
-                                task.effortLevel.label,
-                                style: TextStyle(
-                                  color: getContrastingTextColor(
-                                    task.effortLevel.color,
-                                  ),
-                                ),
+                            m.ColoredBox(
+                              text: task.effortLevel.label,
+                              color: task.effortLevel.color,
+                              textColor: getContrastingTextColor(
+                                task.effortLevel.color,
                               ),
                             ),
                             onTap: () {

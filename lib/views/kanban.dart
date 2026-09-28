@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:munera/main.dart';
+import 'package:munera/widgets/task_card.dart';
 import '../models/task.dart';
 import '../utils.dart';
 
@@ -107,94 +107,99 @@ class _KanbanColumnState extends State<KanbanColumn> {
                 spacing: 8.0,
                 children: [
                   for (var task in tasks)
-                    Container(
-                      padding: .symmetric(vertical: 16.0, horizontal: 32.0),
-                      decoration: BoxDecoration(
-                        color: darken(widget.status.color!, 0.4),
-                        borderRadius: .circular(15.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: .start,
-                        spacing: 16.0,
-                        children: [
-                          Row(
-                            mainAxisAlignment: .center,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  task.name,
-                                  style: TextStyle(
-                                    fontWeight: .bold,
-                                    color: getContrastingTextColor(
-                                      darken(widget.status.color!, 0.4),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 16),
-                              if (task.group != null)
-                                Container(
-                                  padding: .symmetric(
-                                    vertical: 4.0,
-                                    horizontal: 8.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: AppState.getGroupByID(
-                                      task.group!,
-                                    )!.color,
-                                  ),
-                                  child: Text(
-                                    AppState.getGroupByID(task.group!)!.name,
-                                    style: TextStyle(
-                                      color: getContrastingTextColor(
-                                        AppState.getGroupByID(
-                                          task.group!,
-                                        )!.color,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: .center,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  DateFormat('d MMMM yyyy').format(task.due),
-                                  style: TextStyle(
-                                    color: getContrastingTextColor(
-                                      darken(widget.status.color!, 0.4),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 16),
-                              Text('P:', style: TextStyle(fontWeight: .bold)),
-                              SizedBox(width: 8),
-                              Container(
-                                padding: .symmetric(
-                                  vertical: 4.0,
-                                  horizontal: 8.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: task.priority.color,
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                child: Text(
-                                  task.priority.label,
-                                  style: TextStyle(
-                                    color: getContrastingTextColor(
-                                      task.priority.color,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    // Container(
+                    //   padding: .symmetric(vertical: 16.0, horizontal: 32.0),
+                    //   decoration: BoxDecoration(
+                    //     color: darken(widget.status.color!, 0.4),
+                    //     borderRadius: .circular(15.0),
+                    //   ),
+                    //   child: Column(
+                    //     crossAxisAlignment: .start,
+                    //     spacing: 16.0,
+                    //     children: [
+                    //       Row(
+                    //         mainAxisAlignment: .center,
+                    //         children: [
+                    //           Expanded(
+                    //             child: Text(
+                    //               task.name,
+                    //               style: TextStyle(
+                    //                 fontWeight: .bold,
+                    //                 color: getContrastingTextColor(
+                    //                   darken(widget.status.color!, 0.4),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           SizedBox(width: 16),
+                    //           if (task.group != null)
+                    //             Container(
+                    //               padding: .symmetric(
+                    //                 vertical: 4.0,
+                    //                 horizontal: 8.0,
+                    //               ),
+                    //               decoration: BoxDecoration(
+                    //                 borderRadius: BorderRadius.circular(20.0),
+                    //                 color: AppState.getGroupByID(
+                    //                   task.group!,
+                    //                 )!.color,
+                    //               ),
+                    //               child: Text(
+                    //                 AppState.getGroupByID(task.group!)!.name,
+                    //                 style: TextStyle(
+                    //                   color: getContrastingTextColor(
+                    //                     AppState.getGroupByID(
+                    //                       task.group!,
+                    //                     )!.color,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //         ],
+                    //       ),
+                    //       Row(
+                    //         mainAxisAlignment: .center,
+                    //         children: [
+                    //           Expanded(
+                    //             child: Text(
+                    //               DateFormat('d MMMM yyyy').format(task.due),
+                    //               style: TextStyle(
+                    //                 color: getContrastingTextColor(
+                    //                   darken(widget.status.color!, 0.4),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           SizedBox(width: 16),
+                    //           Text('P:', style: TextStyle(fontWeight: .bold)),
+                    //           SizedBox(width: 8),
+                    //           Container(
+                    //             padding: .symmetric(
+                    //               vertical: 4.0,
+                    //               horizontal: 8.0,
+                    //             ),
+                    //             decoration: BoxDecoration(
+                    //               color: task.priority.color,
+                    //               borderRadius: BorderRadius.circular(20.0),
+                    //             ),
+                    //             child: Text(
+                    //               task.priority.label,
+                    //               style: TextStyle(
+                    //                 color: getContrastingTextColor(
+                    //                   task.priority.color,
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    TaskCard(
+                      task: task,
+                      screen: .kanban,
+                      color: darken(widget.status.color!, 0.4),
                     ),
                 ],
               ),
