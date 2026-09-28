@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:munera/main.dart';
 import 'package:munera/widgets/task_card.dart';
-import '../models/task.dart';
-import '../utils.dart';
+import 'package:munera/models/task.dart';
+import 'package:munera/utils.dart';
 
 class Kanban extends StatelessWidget {
   const Kanban({super.key});

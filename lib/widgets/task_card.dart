@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:munera/main.dart';
 import 'package:munera/models/task.dart';
 import 'package:munera/utils.dart';
-import '../widgets/colored_box.dart' as m;
+import 'package:munera/widgets/colored_box.dart' as m;
 
 // Customises what to show on screen based on the page being viewed
 enum Screen {

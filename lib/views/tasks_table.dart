@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:munera/dialogs/confirm_delete_dialog.dart';
 import 'package:munera/dialogs/edit_task_dialog.dart';
-import '../dialogs/create_task_dialog.dart';
-import '../models/group.dart';
-import '../main.dart'; // For AppState
-import '../models/task.dart';
-import '../utils.dart';
-import '../widgets/colored_box.dart' as m;
+import 'package:munera/dialogs/create_task_dialog.dart';
+import 'package:munera/models/group.dart';
+import 'package:munera/main.dart'; // For AppState
+import 'package:munera/models/task.dart';
+import 'package:munera/utils.dart';
+import 'package:munera/widgets/colored_box.dart' as m;
 
 // I am the greatest programmer on earth
 TextStyle? getContrastingRowTextColor(Task task) {

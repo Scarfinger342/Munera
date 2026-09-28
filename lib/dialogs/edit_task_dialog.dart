@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../widgets/group_dropdown.dart';
-import '../main.dart';
-import '../models/task.dart';
+import 'package:munera/widgets/group_dropdown.dart';
+import 'package:munera/main.dart';
+import 'package:munera/models/task.dart';
 
 enum Property { name, group, status, priority, effortLevel, due }
 
