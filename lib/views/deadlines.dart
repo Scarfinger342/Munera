@@ -40,7 +40,7 @@ class _DeadlinesState extends State<Deadlines> {
     const int crossAxisCount = 5;
 
     return Container(
-      padding: .only(top: 32.0),
+      padding: .only(top: 32.0, bottom: 32.0),
       child: Column(
         children: [
           Padding(
