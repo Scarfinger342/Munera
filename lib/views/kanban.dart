@@ -13,7 +13,7 @@ class Kanban extends StatelessWidget {
       padding: .all(32.0),
       child: LayoutBuilder(
         builder: ((context, constraints) {
-          final isWide = constraints.maxWidth > 940;
+          final isWide = constraints.maxWidth >= 940;
           return isWide
               ? Row(
                   crossAxisAlignment: .start,
