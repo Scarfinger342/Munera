@@ -36,15 +36,10 @@ jobs:
       - name: Build Windows release
         run: flutter build windows --release
 
-      - name: Zip artifact
-        run: |
-          Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath windows-build.zip
-        shell: pwsh
-
       - uses: actions/upload-artifact@v4
         with:
           name: windows-build
-          path: windows-build.zip
+          path: build/windows/x64/runner/Release/
 
   # ---------------------------------------------------------------------
   # MACOS
@@ -68,15 +63,17 @@ jobs:
       - name: Build macOS release
         run: flutter build macos --release
 
-      - name: Zip artifact
+      # Tar (not raw upload) so executable bits survive; upload-artifact
+      # zips the file itself, so we don't zip it again.
+      - name: Tar artifact
         run: |
           cd build/macos/Build/Products/Release
-          zip -r ../../../../../macos-build.zip *.app
+          tar -czf ../../../../../macos-build.tar.gz *.app
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-build
-          path: macos-build.zip
+          path: macos-build.tar.gz
 
   # ---------------------------------------------------------------------
   # LINUX
@@ -127,10 +124,15 @@ jobs:
         with:
           path: artifacts
 
+      - name: Zip Windows build
+        run: |
+          cd artifacts/windows-build
+          zip -r ../windows-build.zip .
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/windows-build/windows-build.zip
-            artifacts/macos-build/macos-build.zip
+            artifacts/windows-build.zip
+            artifacts/macos-build/macos-build.tar.gz
             artifacts/linux-build/linux-build.tar.gz

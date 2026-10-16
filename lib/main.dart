@@ -254,12 +254,12 @@ class _SidebarState extends State<Sidebar> {
             index: 2,
             onItemTapped: _onItemTapped,
           ),
-          SidebarButton(
-            icon: Icons.calendar_view_week,
-            text: 'Time Blocking',
-            index: 3,
-            onItemTapped: _onItemTapped,
-          ),
+          // SidebarButton(
+          //   icon: Icons.calendar_view_week,
+          //   text: 'Time Blocking',
+          //   index: 3,
+          //   onItemTapped: _onItemTapped,
+          // ), TODO wait until impl
         ],
       ),
     );
