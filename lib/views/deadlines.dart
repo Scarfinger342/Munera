@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:munera/main.dart';
 import 'package:munera/models/task.dart';
+import 'package:munera/utils.dart';
+import 'package:munera/widgets/task_card.dart';
 
 extension DateOnlyCompare on DateTime {
   bool isSameDate(DateTime other) {
@@ -158,13 +160,27 @@ class DeadlinesDay extends StatelessWidget {
         children: [
           Text(date.day.toString(), style: TextStyle(fontWeight: .bold)),
           for (var task in tasks)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-              decoration: BoxDecoration(
-                color: task.status.color,
-                borderRadius: .circular(8.0),
+            Tooltip(
+              richMessage: WidgetSpan(
+                child: SizedBox(
+                  width: 350,
+                  child: TaskCard(
+                    task: task,
+                    screen: .deadlines,
+                    color: darken(task.status.color ?? Status.todo.color!, 0.4),
+                  ),
+                ),
+                alignment: .middle,
               ),
-              child: Text(task.name, maxLines: 1, overflow: .ellipsis),
+              decoration: BoxDecoration(color: Colors.transparent),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 4.0),
+                decoration: BoxDecoration(
+                  color: task.status.color,
+                  borderRadius: .circular(8.0),
+                ),
+                child: Text(task.name, maxLines: 1, overflow: .ellipsis),
+              ),
             ),
         ],
       ),

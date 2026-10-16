@@ -65,16 +65,16 @@ class TaskCard extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 16),
-              if (screen == .kanban) ...[
-                Text('P:', style: TextStyle(fontWeight: .bold)),
+              if (screen == .kanban || screen == .deadlines) ...[
+                Text('P:', style: TextStyle(fontWeight: .bold, color: getContrastingTextColor(color))),
                 SizedBox(width: 8),
                 m.ColoredBox(
                   text: task.priority.label,
                   color: task.priority.color,
                   textColor: getContrastingTextColor(task.priority.color),
                 ),
-              ] else if (screen == .deadlines || screen == .timeblocking) ...[
-                Text('S:', style: TextStyle(fontWeight: .bold)),
+              ] else if (screen == .timeblocking) ...[
+                Text('S:', style: TextStyle(fontWeight: .bold, color: getContrastingTextColor(color))),
                 m.ColoredBox(
                   text: task.status.label,
                   color: task.status.color,
