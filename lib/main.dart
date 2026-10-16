@@ -7,6 +7,7 @@ import 'views/tasks_table.dart';
 import 'views/kanban.dart';
 import 'views/deadlines.dart';
 import 'views/time_blocking.dart';
+import 'views/time_tracking.dart';
 
 import 'models/task.dart';
 import 'models/group.dart';
@@ -197,6 +198,8 @@ class _ContentsState extends State<Contents> {
         return Deadlines();
       case 3:
         return TimeBlocking();
+      case 4:
+        return TimeTracking();
       default:
         return Container();
     }
@@ -254,12 +257,18 @@ class _SidebarState extends State<Sidebar> {
             index: 2,
             onItemTapped: _onItemTapped,
           ),
-          // SidebarButton(
-          //   icon: Icons.calendar_view_week,
-          //   text: 'Time Blocking',
-          //   index: 3,
-          //   onItemTapped: _onItemTapped,
-          // ), TODO wait until impl
+          SidebarButton(
+            icon: Icons.calendar_view_week,
+            text: 'Time Blocking',
+            index: 3,
+            onItemTapped: _onItemTapped,
+          ),
+          SidebarButton(
+            icon: Icons.alarm,
+            text: 'Time Tracking',
+            index: 4,
+            onItemTapped: _onItemTapped,
+          ),
         ],
       ),
     );
