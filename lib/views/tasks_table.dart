@@ -239,7 +239,12 @@ class _TasksTableState extends State<TasksTable> {
                               });
                             },
                           ),
-                          DataCell(Text(formatMMSS(task.timeSpent))),
+                          DataCell(
+                            Text(
+                              formatMMSS(task.timeSpent),
+                              style: getContrastingRowTextColor(task),
+                            ),
+                          ),
                           DataCell(
                             Text(
                               task.group != null

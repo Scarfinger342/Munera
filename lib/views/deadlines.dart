@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:munera/utils.dart';
+import 'package:munera/main.dart';
+import 'package:munera/models/task.dart';
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+}
 
 class Deadlines extends StatefulWidget {
   const Deadlines({super.key});
@@ -131,6 +138,13 @@ class DeadlinesDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Task> tasks = [];
+    for (var task in AppState.tasks) {
+      DateTime localDueDate = task.due.toLocal();
+      if (date.isSameDate(localDueDate)) {
+        tasks.add(task);
+      }
+    }
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -138,18 +152,20 @@ class DeadlinesDay extends StatelessWidget {
           width: 1.0, // Outline thickness
         ),
       ),
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Column(
+        crossAxisAlignment: .stretch,
         children: [
-          Text(
-            date.day.toString(),
-            style: TextStyle(
-              fontWeight: .bold,
-              color: isCurrentMonth
-                  ? null
-                  : darken(Theme.of(context).colorScheme.onSurface, 0.4),
+          Text(date.day.toString(), style: TextStyle(fontWeight: .bold)),
+          for (var task in tasks)
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 4.0),
+              decoration: BoxDecoration(
+                color: task.status.color,
+                borderRadius: .circular(8.0),
+              ),
+              child: Text(task.name, maxLines: 1, overflow: .ellipsis),
             ),
-          ),
         ],
       ),
     );
