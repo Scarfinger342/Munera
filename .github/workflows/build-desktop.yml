@@ -1,10 +1,14 @@
 name: Build Desktop Binaries
 
-# Only run when a tag (any name) is pushed; also attaches the binaries to a
-# GitHub Release.
+# Trigger on every push to main, every PR, and manually via the Actions tab.
+# Pushing a tag like "v1.0.0" will also attach the binaries to a GitHub Release.
 on:
   push:
+    branches: [main]
     tags: ["*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 env:
   FLUTTER_VERSION: "3.44.5"
