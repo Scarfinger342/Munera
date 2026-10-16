@@ -1,14 +1,10 @@
 name: Build Desktop Binaries
 
-# Trigger on every push to main, every PR, and manually via the Actions tab.
-# Pushing a tag like "v1.0.0" will also attach the binaries to a GitHub Release.
+# Only run when a tag (any name) is pushed; also attaches the binaries to a
+# GitHub Release.
 on:
   push:
-    branches: [main]
-    tags: ["v*"]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+    tags: ["*"]
 
 env:
   FLUTTER_VERSION: "3.44.5"
@@ -116,7 +112,7 @@ jobs:
   # OPTIONAL: attach all three to a GitHub Release when a tag is pushed
   # ---------------------------------------------------------------------
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/')
     needs: [build-windows, build-macos, build-linux]
     runs-on: ubuntu-latest
     steps:
@@ -124,15 +120,16 @@ jobs:
         with:
           path: artifacts
 
-      - name: Zip Windows build
+      - name: Package release files
+        env:
+          VERSION: ${{ github.ref_name }}
         run: |
-          cd artifacts/windows-build
-          zip -r ../windows-build.zip .
+          mkdir release-files
+          (cd artifacts/windows-build && zip -r ../../release-files/munera-$VERSION-windows.zip .)
+          mv artifacts/macos-build/macos-build.tar.gz release-files/munera-$VERSION-macos.tar.gz
+          mv artifacts/linux-build/linux-build.tar.gz release-files/munera-$VERSION-linux.tar.gz
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            artifacts/windows-build.zip
-            artifacts/macos-build/macos-build.tar.gz
-            artifacts/linux-build/linux-build.tar.gz
+          files: release-files/*
